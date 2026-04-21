@@ -1,20 +1,24 @@
-name: CI
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master]
-  pull_request:
+    branches: [master] # 确保这里是您的主分支名（如果是 main 就改成分支名）
+  workflow_dispatch:   # 允许手动触发
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-check:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -27,11 +31,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Astro typecheck
-        run: pnpm astro-check
+      - name: Build Astro
+        run: pnpm run build # 这里生成 dist 目录
 
-      - name: Biome check (lint + formatting) on src
-        run: pnpm biome:check
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist # Astro 默认生成的静态文件目录
 
-      - name: Biome formatting check on src (no write)
-        run: pnpm biome:format -- ./src --write=false
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
