@@ -1,8 +1,14 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Markdown Style Guide"
+description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
+pubDate: "Jul 01 2024"
+image: /image/image3.png
+categories:
+  - Documentation
+  - Examples
+tags:
+  - Makrdown
+badge: Pin
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -31,15 +37,15 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Images
 
-### Syntax
+#### Syntax
 
 ```markdown
 ![Alt text](./full/or/relative/path/of/image)
 ```
 
-### Output
+#### Output
 
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
+![blog placeholder](/logo.png)
 
 ## Blockquotes
 
@@ -50,13 +56,13 @@ The blockquote element represents content that is quoted from another source, op
 #### Syntax
 
 ```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 ```
 
 #### Output
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### Blockquote with attribution
@@ -77,7 +83,7 @@ The blockquote element represents content that is quoted from another source, op
 
 ## Tables
 
-### Syntax
+#### Syntax
 
 ```markdown
 | Italics   | Bold     | Code   |
@@ -85,7 +91,7 @@ The blockquote element represents content that is quoted from another source, op
 | _italics_ | **bold** | `code` |
 ```
 
-### Output
+#### Output
 
 | Italics   | Bold     | Code   |
 | --------- | -------- | ------ |
@@ -93,38 +99,70 @@ The blockquote element represents content that is quoted from another source, op
 
 ## Code Blocks
 
-### Syntax
+#### Syntax
 
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
+we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntac, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
 
 ````markdown
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e5 + 5;
+int n, k, a[N];
+long long ans;
+vector<int> v[N];
+int main()
+{
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i++)
+    {
+        scanf("%d", &a[i]);
+        v[i % k].push_back(a[i]);
+    }
+    for (int i = 0; i < k; i++)
+        sort(v[i].rbegin(), v[i].rend());
+    for (int i = 0; i < k; i++)
+    {
+        for (int j = 0; j + 1 < v[i].size(); j += 2)
+        {
+            ans += v[i][j] + v[i][j + 1];
+        }
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
 ```
 ````
 
-### Output
+Output
 
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e5 + 5;
+int n, k, a[N];
+long long ans;
+vector<int> v[N];
+int main()
+{
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i++)
+    {
+        scanf("%d", &a[i]);
+        v[i % k].push_back(a[i]);
+    }
+    for (int i = 0; i < k; i++)
+        sort(v[i].rbegin(), v[i].rend());
+    for (int i = 0; i < k; i++)
+    {
+        for (int j = 0; j + 1 < v[i].size(); j += 2)
+        {
+            ans += v[i][j] + v[i][j + 1];
+        }
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
 ```
 
 ## List Types
@@ -185,9 +223,9 @@ we can use 3 backticks ``` in new line and write snippet and close with 3 backti
   - Milk
   - Cheese
 
-## Other Elements — abbr, sub, sup, kbd, mark
+## Other Elements
 
-### Syntax
+#### Syntax
 
 ```markdown
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
@@ -196,12 +234,12 @@ H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
+Press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
 ```
 
-### Output
+#### Output
 
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
@@ -209,6 +247,6 @@ H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
+Press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
