@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ master ] # 确保这里和你推送的分支名一致
+    branches: [ master ]
 
 permissions:
   contents: read
@@ -16,16 +16,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # --- 关键的一步：强制升级 Node.js ---
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # 强制使用 Node 22，满足 Astro 6 的要求
+          node-version: 22 # 确保使用 Node 22
           cache: 'npm'
 
-      - name: Install, build, and upload with npm
-        uses: withastro/action@v3
-        # 这里不需要再额外传 path，脚本会自动识别
+      - name: Install dependencies
+        run: npm ci # 使用 ci 确保完全按照 package-lock.json 安装
+
+      - name: Build Astro
+        run: npm run build # 手动执行构建
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist # Astro 构建后的产物默认在 dist 文件夹
 
   deploy:
     needs: build
